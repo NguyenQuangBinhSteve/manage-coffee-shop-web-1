@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "syu6y2fSjV4=",
+  "dgSpecHash": "e/nj3ZG4NJI=",
   "success": true,
-  "projectFilePath": "D:\\agileproject\\manage-coffee-shop-web\\manage-coffee-shop-web-main\\manage-coffee-shop-web.csproj",
+  "projectFilePath": "D:\\agileproject\\manage-coffee-shop-web\\manage-coffee-shop-web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ggbin\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\ggbin\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

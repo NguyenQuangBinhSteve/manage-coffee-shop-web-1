@@ -1,9 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\agileproject\\manage-coffee-shop-web\\manage-coffee-shop-web-main\\",
+  "WorkspaceRootPath": "D:\\agileproject\\manage-coffee-shop-web\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|d:\\agileproject\\manage-coffee-shop-web\\manage-coffee-shop-web-main\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|d:\\agileproject\\manage-coffee-shop-web\\wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|solutionrelative:wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|d:\\agileproject\\manage-coffee-shop-web\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -23,12 +27,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "style.css",
+              "DocumentMoniker": "D:\\agileproject\\manage-coffee-shop-web\\wwwroot\\css\\style.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\style.css",
+              "ToolTip": "D:\\agileproject\\manage-coffee-shop-web\\wwwroot\\css\\style.css",
+              "RelativeToolTip": "wwwroot\\css\\style.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-08-31T14:33:57.681Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\agileproject\\manage-coffee-shop-web\\manage-coffee-shop-web-main\\Views\\Home\\Index.cshtml",
+              "DocumentMoniker": "D:\\agileproject\\manage-coffee-shop-web\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
-              "ToolTip": "D:\\agileproject\\manage-coffee-shop-web\\manage-coffee-shop-web-main\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\agileproject\\manage-coffee-shop-web\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAMAAAAAAAAAAAAAcwP0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-08-30T11:43:12.484Z",
               "EditorCaption": ""

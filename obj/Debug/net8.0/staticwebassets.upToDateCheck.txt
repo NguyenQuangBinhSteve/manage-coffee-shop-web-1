@@ -1,5 +1,4 @@
 wwwroot\css\site.css
-wwwroot\css\style.css
 wwwroot\favicon.ico
 wwwroot\images\banners\.png
 wwwroot\images\banners\5c123349-f4f7-4dbb-ba22-b3ba3aaf33ef.jpg
@@ -73,3 +72,4 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\css\style.css

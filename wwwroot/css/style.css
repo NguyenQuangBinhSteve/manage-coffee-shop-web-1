@@ -58,6 +58,7 @@ body {
     overflow: hidden;
     /* Removed animation: slide 15s infinite linear; */
 }
+
     .banner .container {
         position: relative;
         z-index: 1;
