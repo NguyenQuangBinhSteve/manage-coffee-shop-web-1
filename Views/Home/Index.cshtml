@@ -2,87 +2,64 @@
 
 @{
     ViewData["Title"] = "Home - manage_coffee_shop_web";
-    var bannerImagePath = ViewBag.BannerImagePath ?? "/images/banners/default.jpg"; // Fallback image
+    var bannerImagePath = ViewBag.BannerImagePath ?? "/images/banners/default.jpg"; // Fallback image if null
     var bannerTitle = string.IsNullOrEmpty(ViewBag.BannerTitle) ? "No Title" : ViewBag.BannerTitle;
     var bannerDescription = string.IsNullOrEmpty(ViewBag.BannerDescription) ? "No Description" : ViewBag.BannerDescription;
 }
 
 <!-- Banner Section -->
-<header class="banner" data-image="@bannerImagePath" style="min-height: 400px; position: relative;">
-    <div class="container" style="position: relative; z-index: 1; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center;">
-        <div class="banner-content" style="background: rgba(0, 0, 0, 0.5); padding: 2rem; border-radius: 5px; color: #fff;">
-            <h4 style="margin: 0; font-size: 2.5rem;">@bannerTitle</h4>
-            <p style="margin: 1rem 0; font-size: 1.5rem;">@bannerDescription</p>
-        </div>
-    </div>
+<header class="banner" data-image="@bannerImagePath">
 </header>
 
-<!-- Home Section (#US001) -->
-<section class="home" id="home" style="min-height: 100vh; background: url('/images/home/home-img.jpg') no-repeat; background-size: cover; background-position: center; display: flex; align-items: center;">
-    <div class="content">
-        <h3 style="color: white; font-weight: bold; font-size: 36px;">
-            FRESH COFFEE WITH CHICKEN CAFÉ
-        </h3>
-        <p style="color: #FFFFFF; font-size: 30px; font-weight: 500;">
-            "Hãy bắt đầu bằng một ngày mới trọn vẹn luôn bắt đầu bằng hương thơm nồng nàn của tách cà phê"
-        </p>
-        <a href="#products" class="btn">GYBAU NOW</a>
-    </div>
-</section>
-
-<!-- About Section -->
-<section class="about" id="about" style="margin-bottom: 0; padding-bottom: 20px;">
-    <div class="container">
-        <h1 class="heading" style="border-bottom: 2px solid #4A2C2A; padding-bottom: 10px; padding-top: 10px">
-            <span>VỀ </span> CHICKEN CAFÉ
-        </h1>
-        <div class="row">
-            <div class="image col-md-6">
-                <img src="/images/home/about-img.png" alt="About Us" class="img-fluid">
-            </div>
-            <div class="content col-md-6">
-                <h3>Điều gì làm cho cà phê của chúng tôi trở nên đặc biệt?</h3>
-                <p>
-                    Chúng tôi tin rằng một tách cà phê ngon không chỉ đơn giản là thức uống,
-                    mà còn là trải nghiệm. Từ những hạt cà phê nguyên chất được tuyển chọn kỹ lưỡng,
-                    rang xay chuẩn mực, cho đến cách pha chế tận tâm, tất cả đều nhằm mang đến cho bạn
-                    hương vị đậm đà và trọn vẹn nhất.
-                </p>
-                <p>
-                    Chicken Café không chỉ phục vụ cà phê, chúng tôi trao gửi năng lượng tích cực
-                    để khởi đầu ngày mới, sẻ chia khoảnh khắc và gắn kết mọi người.
-                    Mỗi tách cà phê là một câu chuyện, và chúng tôi rất vui được viết tiếp câu chuyện cùng bạn.
-                </p>
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Products Section (#US002) -->
-<section class="products" id="products" style="margin-top: -250px; padding-top: 20px;">
+<section class="products" id="products">
     <div class="container">
-        <h1 class="heading" style="border-bottom: 2px solid #4A2C2A; padding-bottom: 10px; padding-top: 10px">
-            <span>SẢN </span> PHẨM
-        </h1>
-        <div class="row">
-            <div class="col-md-3 filter-sidebar">
-                <h5>Filter by Category</h5>
-                <select class="form-select mb-3" id="categoryFilter">
-                    <option value="">All Categories</option>
-                    @foreach (var category in ViewBag.Categories ?? Enumerable.Empty<dynamic>())
-                    {
-                        <option value="@category.Id">@category.Name</option>
-                    }
-                </select>
+        <h1 class="heading"><span>Our</span> Menu</h1>
+        <!-- Advanced Search Form -->
+        <form asp-action="Index" asp-controller="Search" method="get" class="search-form">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="categoryId" class="form-label">Category</label>
+                    <select class="form-select" id="categoryId" name="categoryId">
+                        <option value="">All Categories</option>
+                        @foreach (var category in ViewBag.Categories ?? Enumerable.Empty<dynamic>())
+                        {
+                            if (ViewBag.SelectedCategoryId.HasValue && category.Id == ViewBag.SelectedCategoryId)
+                            {
+                                <option value="@category.Id" selected>@category.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="searchTerm" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="searchTerm" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Enter name..." />
+                </div>
+                <div class="col-md-3">
+                    <label for="minPrice" class="form-label">Min Price</label>
+                    <input type="number" class="form-control" id="minPrice" name="minPrice" value="@ViewBag.MinPrice" min="0" step="0.01" placeholder="Min..." />
+                </div>
+                <div class="col-md-3">
+                    <label for="maxPrice" class="form-label">Max Price</label>
+                    <input type="number" class="form-control" id="maxPrice" name="maxPrice" value="@ViewBag.MaxPrice" min="0" step="0.01" placeholder="Max..." />
+                </div>
             </div>
-            <div class="col-md-9">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     @foreach (var product in ViewBag.Products ?? Enumerable.Empty<dynamic>())
                     {
                         <div class="col">
                             <div class="card product-card h-100">
-                                <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" loading="lazy" />
+                                <a href="@Url.Action("Details", "Product", new { id = product.Id })">
+                                    <img src="@product.Image" class="card-img-top" alt="@product.Name" loading="lazy" />
+                                </a>
                                 <div class="card-body">
                                     <h5 class="card-title">@product.Name</h5>
                                     <p class="card-text price">@product.Price</p>
@@ -98,12 +75,48 @@
     </div>
 </section>
 
+<!-- Home Section (#US001) -->
+<section class="home" id="home">
+    <div class="content">
+        <h3>Fresh Coffee with BOTT COFFEE</h3>
+        <p>
+            “Cà phê luôn đậm đà, thơm mới, nhân viên thân thiện và không gian ấm cúng.
+            Đây là quán ruột của tôi – đặc biệt thích các hương vị theo mùa!”
+            <br>
+            <strong>Jane D., Khách hàng thân thiết</strong>
+        </p>
+        <a href="#products" class="btn">Get Yours Now</a>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about" id="about">
+    <div class="container">
+        <h1 class="heading"><span>About</span> Us</h1>
+        <div class="row">
+            <div class="image col-md-6">
+                <img src="/images/home/about-img.png" alt="About Us" class="img-fluid">
+            </div>
+            <div class="content col-md-6">
+                <h3>Điều Gì Làm Cà Phê Chúng Tôi Đặc Biệt?</h3>
+                <p>
+                    Từ những góc vỉa hè quen thuộc, nơi hương cà phê rang hòa cùng nhịp sống đô thị, chúng tôi mang đến những ly cà phê đậm đà và trà thanh mát.
+                </p>
+                <p>
+                    Mỗi tách đều được chăm chút để bạn tìm thấy năng lượng tích cực cho ngày mới, sự tỉnh táo cho công việc và chút bình yên giữa guồng quay bận rộn. Ở đây, cà phê và trà không chỉ để thưởng thức, mà còn để kết nối con người và câu chuyện.
+                </p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
 <!-- Menu Section (#US006, #US007) -->
 <section class="menu" id="menu">
     <div class="container">
-        <h1 class="heading" style="border-bottom: 2px solid #4A2C2A; padding-bottom: 10px; padding-top: 10px">
-            THỰC <span>ĐƠN</span>
-        </h1>
+        <h1 class="heading"><span>Our</span> Product</h1>
         <div class="row">
             <div class="col-md-3 filter-sidebar">
                 <h5>Filter by Category</h5>
@@ -139,9 +152,7 @@
 <!-- Reviews Section -->
 <section class="reviews" id="reviews">
     <div class="container">
-        <h1 class="heading" style="border-bottom: 2px solid #4A2C2A; padding-bottom: 10px; padding-top: 10px">
-            ĐÁNH GIÁ<span> KHÁCH HÀNG</span>
-        </h1>
+        <h1 class="heading"><span>Customer</span> Reviews</h1>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach (var review in ViewBag.Reviews ?? Enumerable.Empty<dynamic>())
             {
@@ -168,9 +179,7 @@
 <!-- Contact Section (#US009, #US010) -->
 <section class="contact" id="contact">
     <div class="container">
-        <h1 class="heading" style="border-bottom: 2px solid #4A2C2A; padding-bottom: 10px; padding-top: 10px">
-            <span>LIÊN</span> HỆ
-        </h1>
+        <h1 class="heading"><span>Contact</span> Us</h1>
         <div class="row">
             <div class="col-md-6">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.0987465358617!2d106.6372448509867!3d10.72686676604185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ff232d1450b%3A0x3659e3c94323e995!2sCoffee%20BOTT!5e0!3m2!1sen!2s!4v1753882951554!5m2!1sen!2s" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -202,7 +211,48 @@
     </div>
 </section>
 
+<!-- Blogs Section (#US008) -->
+<section class="blogs" id="blogs">
+    <div class="container">
+        <h1 class="heading"><span>Our</span> Blogs</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var blog in ViewBag.Blogs ?? Enumerable.Empty<dynamic>())
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="@blog.ImageUrl" class="card-img-top" alt="@blog.Title" loading="lazy" />
+                        <div class="card-body">
+                            <h5 class="card-title">@blog.Title</h5>
+                            <p class="card-text">@blog.Content.Substring(0, 100)...</p>
+                            <p class="text-muted">by @blog.Author on @blog.Date.ToString("dd/MM/yyyy")</p>
+                            <a href="@Url.Action("Details", "Blog", new { id = blog.Id })" class="btn btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</section>
+
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const banner = document.querySelector(".banner");
+        const imagePath = banner.getAttribute("data-image");
+        if (imagePath) {
+            banner.style.backgroundImage = `url('${imagePath}')`;
+        }
+    });
+
     // Add to cart
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', (e) => {
@@ -214,7 +264,6 @@
                 body: JSON.stringify({ productId, quantity: 1 })
             }).then(response => response.json()).then(data => {
                 alert(data.message || 'Added to cart!');
-                // Update cart UI (implement reload or live update)
             }).catch(error => console.error('Error:', error));
         });
     });
@@ -240,15 +289,4 @@
             }
         });
     })();
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const banner = document.querySelector(".banner");
-        const imagePath = banner.getAttribute("data-image");
-        if (imagePath) {
-            banner.style.backgroundImage = `url('${imagePath}')`;
-            console.log("Setting background image to: ", imagePath);
-        } else {
-            console.log("No image path found for banner.");
-        }
-    });
 </script>

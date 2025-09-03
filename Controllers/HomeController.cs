@@ -29,6 +29,11 @@ namespace manage_coffee_shop_web.Controllers
             }
 
             var banner = GetBannerFromDatabase();
+
+            // Retrieve default products (up to 6) with no filters
+            var products = GetProductsFromDatabase(null, null, null, null);
+            ViewBag.Products = products;
+
             if (banner != null)
             {
                 ViewBag.BannerImagePath = banner.Image;
@@ -44,6 +49,65 @@ namespace manage_coffee_shop_web.Controllers
                 _logger.LogWarning("No banner data retrieved from database.");
             }
             return View();
+        }
+
+        private List<Product> GetProductsFromDatabase(int? categoryId, string searchTerm, decimal? minPrice, decimal? maxPrice)
+        {
+            var products = new List<Product>();
+            try
+            {
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("MyDb")))
+                {
+                    connection.Open();
+                    var query = "SELECT TOP 6 Id, Name, Description, Price, Image FROM Products WHERE 1=1";
+                    var parameters = new List<SqlParameter>();
+
+                    if (categoryId.HasValue)
+                    {
+                        query += " AND CategoryId = @CategoryId";
+                        parameters.Add(new SqlParameter("@CategoryId", categoryId.Value));
+                    }
+                    if (!string.IsNullOrEmpty(searchTerm))
+                    {
+                        query += " AND Name LIKE @SearchTerm";
+                        parameters.Add(new SqlParameter("@SearchTerm", $"%{searchTerm}%"));
+                    }
+                    if (minPrice.HasValue)
+                    {
+                        query += " AND Price >= @MinPrice";
+                        parameters.Add(new SqlParameter("@MinPrice", minPrice.Value));
+                    }
+                    if (maxPrice.HasValue)
+                    {
+                        query += " AND Price <= @MaxPrice";
+                        parameters.Add(new SqlParameter("@MaxPrice", maxPrice.Value));
+                    }
+
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddRange(parameters.ToArray());
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                products.Add(new Product
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Name = reader["Name"].ToString(),
+                                    Description = reader["Description"].ToString(),
+                                    Price = reader.GetDecimal(3),
+                                    Image = reader["Image"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving products from database");
+            }
+            return products;
         }
 
         public IActionResult Privacy()

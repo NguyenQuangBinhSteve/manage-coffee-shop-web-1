@@ -1,13 +1,16 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;1,400&display=swap');
+﻿/* Import font for consistent typography */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;1,400&display=swap');
 
+/* Root variables for theme consistency */
 :root {
     --main-color: #8B4513; /* Warm coffee brown */
     --text-color: #4A2C2A; /* Dark brown for text */
     --bg-color: #F5E8C7; /* Light beige background */
     --highlight-color: #D2B48C; /* Tan for highlights */
-    --border-color: .1rem solid rgba(139, 69, 19, .2); /* Subtle border */
+    --border-color: 0.1rem solid rgba(139, 69, 19, 0.2); /* Subtle border */
 }
 
+/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -21,12 +24,13 @@ body {
     line-height: 1.6;
 }
 
+/* Header Styles */
 .header {
     position: sticky;
     top: 0;
     z-index: 1000;
     border-bottom: var(--border-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .auth-section {
@@ -39,211 +43,268 @@ body {
     background: var(--bg-color);
 }
 
+/* Navbar Styles */
 .navbar {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
 }
 
+    .navbar a {
+        margin: 0 1rem;
+        font-size: 1.6rem;
+        color: var(--text-color);
+        text-decoration: none;
+        /* Customize spacing or color here if needed */
+    }
+
 /* Banner Styles */
 .banner {
-    background-size: contain; /* Display full image without cropping or zooming */
+    /* Position and size for full-width banner */
+    width: 100%; /* Full width */
+    max-width: 1920px; /* Limit for large screens, customizable */
+    background-size: contain; /* Display full image without cropping */
     background-position: center;
     background-repeat: no-repeat; /* Prevent tiling */
-    min-height: 400px;
-    height: 100%;
-    margin: 0;
+    min-height: 400px; /* Base height, adjust as needed */
+    margin: 0 auto; /* Center the banner */
     padding: 0;
     position: relative;
     overflow: hidden;
     /* Removed animation: slide 15s infinite linear; */
 }
 
-    .banner .container {
-        position: relative;
-        z-index: 1;
-        height: 100%;
+/* Section Styles */
+.section {
+    /* Base style for all sections */
+    padding: 1rem 5%; /* Reduced padding to minimize spacing */
+    /* Adjust padding or add margin if needed */
+}
+
+/* Home Section Styles */
+.home {
+    /* Background and content positioning */
+    background: url('/images/home/home-img.jpg') no-repeat center center;
+    background-size: cover; /* Ảnh nền che kín toàn bộ, có thể bị crop */
+    min-height: 100vh; /* Chiều cao = toàn màn hình */
+    display: flex;
+    align-items: center; /* Canh giữa theo chiều dọc */
+    justify-content: center; /* Canh giữa theo chiều ngang */
+    padding: 2rem; /* Thêm padding tránh chữ dính sát viền */
+    color: #fff; /* Đặt màu chữ sáng cho nổi bật */
+    text-align: center; /* Canh chữ giữa */
+    position: relative;
+}
+
+    .home .content {
+        /* Content alignment */
+        text-align: center;
+        color: #fff; /* White text for contrast */
+        /* Adjust text alignment or color if needed */
+
+    }
+
+        .home .content h3 {
+            font-weight: bold;
+            font-size: 36px; /* Large heading */
+            /* Customize font-size or weight here if needed */
+        }
+
+        .home .content p {
+            font-size: 20px;
+            font-weight: 500;
+            text-align: center; /* canh giữa text */
+        }
+
+    .home .btn {
+        /* Button styling */
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: var(--main-color);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        /* Customize padding or color here if needed */
+    }
+
+/* About Section Styles */
+.about {
+    /* Container for about content */
+    /* No additional styling needed, relies on .section */
+}
+
+    .about .heading {
+        /* Heading with span */
+        text-align: center;
+        /* Border and padding handled in .heading class below */
+    }
+
+    .about .row {
+        /* Grid layout */
         display: flex;
         align-items: center;
-        justify-content: center;
+        /* Customize alignment if needed */
     }
 
-    .banner .banner-content {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 2rem;
-        border-radius: 5px;
-        color: #fff;
+    .about .image img {
+        /* Image styling */
+        width: 100%;
+        /* Customize width or height if needed */
+    }
+
+    .about .content h3 {
+        /* Subheading */
+        font-size: 1.8rem;
+        /* Adjust font-size if needed */
+    }
+
+    .about .content p {
+        /* Paragraph text */
+        margin: 1rem 0;
+        /* Customize margin if needed */
+    }
+
+/* Products and Menu Section Styles */
+.products, .menu {
+    /* Shared styling for products and menu */
+    /* No additional styling needed, relies on .section */
+    /* Customize section padding or margin if needed */
+}
+
+    .products .heading, .menu .heading {
+        /* Heading with span */
         text-align: center;
+        /* Border and padding handled in .heading class below */
+        /* Adjust text alignment if needed */
     }
 
-.header .navbar a {
-    margin: 0 1rem;
-    font-size: 1.6rem;
-    color: var(--text-color); /* Adjusted to match theme */
-    text-decoration: none; /* Remove default underline */
-    transition: all 0.3s ease; /* Optional transition */
-}
-
-    .header .navbar a:hover {
-        color: var(--main-color);
-        border: .1rem solid var(--main-color);
-        padding: 0.3rem 0.6rem;
-        border-radius: 0.3rem;
+    .products .filter-sidebar, .menu .filter-sidebar {
+        /* Sidebar for filtering */
+        padding: 1rem;
+        /* Customize padding if needed */
     }
 
-.main-content {
-    padding-top: 100px; /* Adjusted for combined header height */
+    .products .row-cols-md-3, .menu .row-cols-md-3 {
+        /* Grid for cards */
+        /* No additional styling needed, uses Bootstrap */
+        /* Adjust grid columns if needed */
+    }
+
+.product-card, .menu-item {
+    /* Card styling */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    /* Customize border or radius if needed */
 }
 
-section {
-    padding: 4rem 2rem;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .product-card .card-img-top, .menu-item .card-img-top {
+        /* Default image dimensions */
+        width: 100%; /* Full width of card */
+        height: 200px; /* Fixed height for consistency */
+        object-fit: cover; /* Maintain aspect ratio, crop if necessary */
+        /* Customize width, height, or object-fit if needed */
+    }
+
+.price {
+    /* Price styling */
+    color: #e74c3c;
+    font-weight: bold;
+    /* Customize color or weight if needed */
 }
 
+/* Search Form Styles */
+.search-form {
+    /* Styling for the search form */
+    margin-bottom: 1rem; /* Space before product grid */
+    /* Customize margin if needed */
+}
+
+.search-form .form-label {
+    /* Label styling */
+    font-weight: bold;
+    /* Customize font-weight if needed */
+}
+
+.search-form .btn-primary {
+    /* Search button styling */
+    margin-top: 1.5rem; /* Align with input fields */
+    /* Customize margin or color if needed */
+}
+
+/* Reviews Section Styles */
+.reviews {
+    /* No additional styling needed, relies on .section */
+}
+
+    .reviews .heading {
+        /* Heading with span */
+        text-align: center;
+        /* Border and padding handled in .heading class below */
+    }
+
+/* Contact Section Styles */
+.contact {
+    /* No additional styling needed, relies on .section */
+}
+
+    .contact .heading {
+        /* Heading with span */
+        text-align: center;
+        /* Border and padding handled in .heading class below */
+    }
+
+    .contact iframe {
+        /* Map iframe */
+        width: 100%;
+        height: 300px;
+        border: 0;
+        /* Customize height if needed */
+    }
+
+/* Blogs Section Styles */
+.blogs {
+    /* No additional styling needed, relies on .section */
+}
+
+    .blogs .heading {
+        /* Heading with span */
+        text-align: center;
+        /* Border and padding handled in .heading class below */
+    }
+
+/* General Heading Styles */
 .heading {
-    font-size: 3rem;
-    text-align: center;
-    margin-bottom: 2rem;
+    /* Consistent heading style */
+    border-bottom: 2px solid #4A2C2A; /* Matches text-color */
+    padding-bottom: 10px;
+    padding-top: 10px;
+    /* Customize border or padding if needed */
 }
 
     .heading span {
+        /* Span within heading */
         color: var(--main-color);
+        /* Customize color if needed */
     }
 
+/* Button Styles */
 .btn {
+    /* General button styling */
     display: inline-block;
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     background: var(--main-color);
     color: #fff;
-    border-radius: 0.25rem;
     text-decoration: none;
-    transition: background 0.3s ease;
+    border-radius: 5px;
+    /* Customize padding or color here if needed */
 }
 
-    .btn:hover {
-        background: var(--highlight-color);
-        color: var(--text-color);
+/* Animation (Commented for customization) */
+/* @keyframes slide {
+    from {
+        background-position: 0 0;
     }
-
-.search-form, .cart-items-container {
-    position: absolute;
-    top: 100%;
-    right: 2rem;
-    background: #fff;
-    border: var(--border-color);
-    padding: 1rem;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.3s ease;
-    z-index: 1000;
-}
-
-    .search-form.active, .cart-items-container.active {
-        transform: scaleY(1);
+    to {
+        background-position: -100% 0;
     }
-
-    .search-form input {
-        width: 20rem;
-        padding: 0.5rem;
-        font-size: 1.2rem;
-    }
-
-.cart-items-container {
-    width: 30rem;
-    right: -100%;
-    max-height: 50vh;
-    overflow-y: auto;
-}
-
-.cart-item {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem;
-    border-bottom: var(--border-color);
-}
-
-    .cart-item img {
-        width: 5rem;
-        height: 5rem;
-        object-fit: cover;
-    }
-
-.card {
-    background: #fff;
-    border: var(--border-color);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin: 1rem 0;
-}
-
-.product-card, .menu-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-    .product-card img, .menu-item img {
-        max-width: 100%;
-        height: 15rem;
-        object-fit: cover;
-    }
-
-.filter-sidebar {
-    background: #fff;
-    padding: 1rem;
-    border: var(--border-color);
-    margin-right: 1rem;
-}
-
-.pagination .page-item .page-link {
-    color: var(--text-color);
-}
-
-.pagination .page-item.active .page-link {
-    background: var(--main-color);
-    color: #fff;
-}
-
-.footer {
-    background: var(--text-color);
-    padding: 1rem;
-}
-
-    .footer a {
-        color: #fff;
-        margin: 0 0.5rem;
-    }
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background: var(--bg-color);
-        width: 20rem;
-        padding: 1rem;
-        border: var(--border-color);
-        display: none;
-    }
-
-        .navbar.active {
-            display: flex;
-        }
-
-        .navbar a {
-            margin: 0.5rem 0;
-            width: 100%;
-            text-align: left;
-        }
-
-    .auth-section {
-        flex-direction: column;
-        align-items: flex-end;
-    }
-}
+} */
