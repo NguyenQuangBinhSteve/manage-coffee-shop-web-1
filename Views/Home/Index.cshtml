@@ -1,4 +1,6 @@
 ﻿@model dynamic
+@* Add this at the top of the file *@
+@using manage_coffee_shop_web.Models
 
 @{
     ViewData["Title"] = "Home - manage_coffee_shop_web";
@@ -8,32 +10,38 @@
 }
 
 <!-- Banner Section -->
-<header class="banner" data-image="@bannerImagePath">
-</header>
+<div class="banner" style="text-align: center; margin-bottom: 2rem;">
+    <img src="@ViewBag.BannerImagePath" alt="Banner" style="max-width: 100%; height: auto;" />
+</div>
 
 <!-- Products Section (#US002) -->
 <section class="products" id="products">
     <div class="container">
-        <h1 class="heading"><span>Our</span> Menu</h1>
+        <h1 class="heading"><span>Our</span> Products</h1>
         <!-- Advanced Search Form -->
-        <form asp-action="Index" asp-controller="Search" method="get" class="search-form">
+        <form asp-action="Index" asp-controller="Home" method="get" class="search-form">
             <div class="row mb-3">
                 <div class="col-md-3">
                     <label for="categoryId" class="form-label">Category</label>
                     <select class="form-select" id="categoryId" name="categoryId">
                         <option value="">All Categories</option>
-                        @foreach (var category in ViewBag.Categories ?? Enumerable.Empty<dynamic>())
+                        @foreach (var category in (ViewBag.Categories as IEnumerable<Category>) ?? Enumerable.Empty<Category>())
                         {
-                            if (ViewBag.SelectedCategoryId.HasValue && category.Id == ViewBag.SelectedCategoryId)
+                            if (category != null && category.Id != null && category.Name != null)
                             {
-                                <option value="@category.Id" selected>@category.Name</option>
-                            }
-                            else
-                            {
-                                <option value="@category.Id">@category.Name</option>
+                                var selectedCategoryId = ViewBag.SelectedCategoryId as int?;
+                                var isSelected = selectedCategoryId.HasValue && category.Id == selectedCategoryId.Value;
+                                if (isSelected)
+                                {
+                                    <option value="@category.Id" selected>@category.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
                             }
                         }
-                    </select>
+                    </select>  
                 </div>
                 <div class="col-md-3">
                     <label for="searchTerm" class="form-label">Product Name</label>

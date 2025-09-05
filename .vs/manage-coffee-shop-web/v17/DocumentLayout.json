@@ -1,28 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\agileproject\\manage-coffee-shop-web\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|d:\\agileproject\\manage-coffee-shop-web\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|d:\\agileproject\\manage-coffee-shop-web\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|solutionrelative:models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|d:\\agileproject\\manage-coffee-shop-web\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|solutionrelative:controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|d:\\agileproject\\manage-coffee-shop-web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|d:\\agileproject\\manage-coffee-shop-web\\wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{1EBD0AE4-53BC-40E5-9F4F-33B2FBD7F19B}|manage-coffee-shop-web.csproj|solutionrelative:wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,76 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Category.cs",
-              "DocumentMoniker": "D:\\agileproject\\manage-coffee-shop-web\\Models\\Category.cs",
-              "RelativeDocumentMoniker": "Models\\Category.cs",
-              "ToolTip": "D:\\agileproject\\manage-coffee-shop-web\\Models\\Category.cs",
-              "RelativeToolTip": "Models\\Category.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-03T08:52:09.075Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "style.css",
-              "DocumentMoniker": "D:\\agileproject\\manage-coffee-shop-web\\wwwroot\\css\\style.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\style.css",
-              "ToolTip": "D:\\agileproject\\manage-coffee-shop-web\\wwwroot\\css\\style.css",
-              "RelativeToolTip": "wwwroot\\css\\style.css",
-              "ViewState": "AgIAANcAAAAAAAAAAAAIwNkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-09-03T08:39:36.517Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SearchController.cs",
-              "DocumentMoniker": "D:\\agileproject\\manage-coffee-shop-web\\Controllers\\SearchController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SearchController.cs",
-              "ToolTip": "D:\\agileproject\\manage-coffee-shop-web\\Controllers\\SearchController.cs",
-              "RelativeToolTip": "Controllers\\SearchController.cs",
-              "ViewState": "AgIAAG4AAAAAAAAAAAAcwIMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-03T08:30:29.351Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\agileproject\\manage-coffee-shop-web\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
-              "ToolTip": "D:\\agileproject\\manage-coffee-shop-web\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEsAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-03T08:18:46.572Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "D:\\agileproject\\manage-coffee-shop-web\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
-              "ToolTip": "D:\\agileproject\\manage-coffee-shop-web\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "Controllers\\HomeController.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAcwG4AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-03T08:17:04.852Z",
-              "EditorCaption": ""
             }
           ]
         }
