@@ -9,43 +9,54 @@
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="header bg-light text-dark py-2">
-        <div class="container-fluid">
-            <!-- Authentication Section -->
-            <div class="auth-section d-flex justify-content-end align-items-center py-1">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <span class="me-3">Welcome, @User.Identity.Name</span>
-                    <a asp-area="" asp-controller="Account" asp-action="Logout" class="btn btn-outline-danger btn-sm">Logout</a>
-                }
-                else
-                {
-                    <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-outline-primary btn-sm me-2">Login</a>
-                    <a asp-area="" asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary btn-sm">Register</a>
-                }
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="header bg-light text-dark py-2">
+            <div class="container-fluid">
+                <!-- Authentication Section -->
+                <div class="auth-section d-flex justify-content-end align-items-center py-1">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <span class="me-3">Welcome, @User.Identity.Name</span>
+                        <a asp-area="" asp-controller="Account" asp-action="Logout" class="btn btn-outline-danger btn-sm">Logout</a>
+                    }
+                </div>
+                <!-- Navigation Section -->
+                <div class="nav-section">
+                    <nav class="navbar">
+                        <a asp-controller="Home" asp-action="Index">
+                            <img src="~/images/Logo/Logo.png" alt="Coffee Shop Logo" class="logo" />
+                            <span class="brand-name">CHICKEN COFFEE</span>
+                        </a>
+                        <a asp-controller="Home" asp-action="Index" asp-fragment="home">Giới Thiệu</a>
+                        <a asp-controller="Home" asp-action="Index" asp-fragment="about">Về Chúng Tôi</a>
+                        <a asp-controller="Home" asp-action="Index" asp-fragment="menu">Coffee Quán</a>
+                        <a asp-controller="Home" asp-action="Index" asp-fragment="products">Sản Phẩm</a>
+                        <a asp-controller="Home" asp-action="Index" asp-fragment="contact">Liên Hệ</a>
+                        <a asp-controller="Home" asp-action="Index" asp-fragment="blogs">Blogs</a>
+                        <div class="buttons">
+                            <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-auth">Login</a>
+                            <a asp-area="" asp-controller="Account" asp-action="Register" class="btn btn-auth">Register</a>
+                        </div>
+                    </nav>
+                </div>
             </div>
-            <!-- Navigation Section -->
-            <div class="nav-section">
-                <nav class="navbar">
-                    <a href="#home">home</a>
-                    <a href="#about">about</a>
-                    <a href="#menu">menu</a>
-                    <a href="#products">product</a>
-                    <a href="#review">review</a>
-                    <a href="#contact">contact</a>
-                    <a href="#blogs">blogs</a>
-                </nav>
-            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content flex-fill">
+            <main role="main">
+                @RenderBody()
+            </main>
         </div>
-    </header>
-    <div class="main-content">
-        <main role="main">
-            @RenderBody()
-        </main>
+
+        <!-- Footer -->
+        <footer class="footer bg-dark text-white text-center py-3">
+            <p>&copy; 2025 - manage_coffee_shop_web | All rights reserved</p>
+        </footer>
     </div>
-    <footer class="footer bg-dark text-white text-center py-3">
-        <p>&copy; 2025 - manage_coffee_shop_web | All rights reserved</p>
-    </footer>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

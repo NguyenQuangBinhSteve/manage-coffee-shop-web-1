@@ -1,0 +1,6 @@
+﻿@if (!User.Identity.IsAuthenticated)
+{
+    <div class="notification alert alert-warning text-center" role="alert">
+        Bạn cần đăng nhập để xem chi tiết sản phẩm. <a asp-controller="Account" asp-action="Login" class="alert-link">Đăng nhập ngay</a> hoặc <a asp-controller="Account" asp-action="Register" class="alert-link">đăng ký</a>.
+    </div>
+}

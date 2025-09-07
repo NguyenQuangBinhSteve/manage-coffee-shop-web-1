@@ -28,19 +28,15 @@ namespace manage_coffee_shop_web.Controllers
                 return View();
             }
 
-            var banner = GetBannerFromDatabase();
-            if (banner != null)
+            var banners = GetBannerFromDatabase();
+            if (banners != null && banners.Any())
             {
-                ViewBag.BannerImagePath = banner.Image;
-                ViewBag.BannerTitle = banner.Title;
-                ViewBag.BannerDescription = banner.Description;
-                _logger.LogInformation("Banner retrieved: Image={Image}, Title={Title}, Description={Description}", banner.Image, banner.Title, banner.Description);
+                ViewBag.Banners = banners;
+                _logger.LogInformation("Banners retrieved: Count={Count}", banners.Count);
             }
             else
             {
-                ViewBag.BannerImagePath = null;
-                ViewBag.BannerTitle = "";
-                ViewBag.BannerDescription = "";
+                ViewBag.Banners = new List<Banner>();
                 _logger.LogWarning("No banner data retrieved from database.");
             }
 
@@ -260,7 +256,7 @@ namespace manage_coffee_shop_web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private Banner GetBannerFromDatabase()
+        private List<Banner> GetBannerFromDatabase()
         {
             try
             {
@@ -268,36 +264,38 @@ namespace manage_coffee_shop_web.Controllers
                 if (string.IsNullOrEmpty(connectionString))
                 {
                     _logger.LogError("Connection string is null or empty in GetBannerFromDatabase.");
-                    return null;
+                    return new List<Banner>();
                 }
 
                 using (var connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    var query = "SELECT TOP 1 Id, Title, Description, Image FROM Banner ORDER BY Id DESC";
+                    var query = "SELECT Id, Title, Description, Image FROM Banner ORDER BY Id DESC";
                     using (var command = new SqlCommand(query, connection))
                     {
                         using (var reader = command.ExecuteReader())
                         {
-                            if (reader.Read())
+                            var banners = new List<Banner>();
+                            while (reader.Read())
                             {
-                                return new Banner
+                                banners.Add(new Banner
                                 {
                                     Id = reader.GetInt32(0),
                                     Title = reader["Title"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     Image = reader["Image"].ToString()
-                                };
+                                });
                             }
+                            return banners;
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving banner from database");
+                _logger.LogError(ex, "Error retrieving banners from database");
+                return new List<Banner>();
             }
-            return null;
         }
     }
 }

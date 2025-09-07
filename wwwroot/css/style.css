@@ -18,293 +18,533 @@
     font-family: 'Roboto Mono', monospace;
 }
 
-body {
-    background: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-}
-
-/* Header Styles */
-.header {
+/* ----------------------------------------- */
+/* Header Styles (Sticky toàn bộ Header)     */
+/* ----------------------------------------- */
+header.header {
     position: sticky;
     top: 0;
-    z-index: 1000;
-    border-bottom: var(--border-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.auth-section {
-    background: rgba(245, 232, 199, 0.9);
-    padding: 0.5rem 1rem;
-}
-
-.nav-section {
-    padding: 0.5rem 1rem;
-    background: var(--bg-color);
-}
-
-/* Navbar Styles */
-.navbar {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-}
-
-    .navbar a {
-        margin: 0 1rem;
-        font-size: 1.6rem;
-        color: var(--text-color);
-        text-decoration: none;
-        /* Customize spacing or color here if needed */
-    }
-
-/* Banner Styles */
-.banner {
-    /* Position and size for full-width banner */
-    width: 100%; /* Full width */
-    max-width: 1920px; /* Limit for large screens, customizable */
-    background-size: contain; /* Display full image without cropping */
-    background-position: center;
-    background-repeat: no-repeat; /* Prevent tiling */
-    min-height: 400px; /* Base height, adjust as needed */
-    margin: 0 auto; /* Center the banner */
+    z-index: 1100;
+    background-color: var(--bg-color);
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+    width: 100%; /* full màn hình */
+    margin: 0;
     padding: 0;
-    position: relative;
-    overflow: hidden;
-    /* Removed animation: slide 15s infinite linear; */
 }
 
-/* Section Styles */
-.section {
-    /* Base style for all sections */
-    padding: 1rem 5%; /* Reduced padding to minimize spacing */
-    /* Adjust padding or add margin if needed */
-}
-
-/* Home Section Styles */
-.home {
-    /* Background and content positioning */
-    background: url('/images/home/home-img.jpg') no-repeat center center;
-    background-size: cover; /* Ảnh nền che kín toàn bộ, có thể bị crop */
-    min-height: 100vh; /* Chiều cao = toàn màn hình */
-    display: flex;
-    align-items: center; /* Canh giữa theo chiều dọc */
-    justify-content: center; /* Canh giữa theo chiều ngang */
-    padding: 2rem; /* Thêm padding tránh chữ dính sát viền */
-    color: #fff; /* Đặt màu chữ sáng cho nổi bật */
-    text-align: center; /* Canh chữ giữa */
-    position: relative;
-}
-
-    .home .content {
-        /* Content alignment */
-        text-align: center;
-        color: #fff; /* White text for contrast */
-        /* Adjust text alignment or color if needed */
-
+    /* Auth Section */
+    header.header .auth-section {
+        padding: 2px 10px;
+        font-size: 0.85rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        border-bottom: 1px solid var(--border-color);
     }
 
-        .home .content h3 {
-            font-weight: bold;
-            font-size: 36px; /* Large heading */
-            /* Customize font-size or weight here if needed */
+        header.header .auth-section .btn-outline-danger {
+            padding: 2px 10px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
         }
 
-        .home .content p {
-            font-size: 20px;
-            font-weight: 500;
-            text-align: center; /* canh giữa text */
-        }
+            header.header .auth-section .btn-outline-danger:hover {
+                color: #6A4C48;
+                font-weight: 600;
+            }
 
-    .home .btn {
-        /* Button styling */
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        background: var(--main-color);
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-        /* Customize padding or color here if needed */
-    }
-
-/* About Section Styles */
-.about {
-    /* Container for about content */
-    /* No additional styling needed, relies on .section */
+/* ----------------------------------------- */
+/* Navigation Styles                         */
+/* ----------------------------------------- */
+.nav-section {
+    padding: 5px 0;
+    background-color: var(--bg-color);
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-    .about .heading {
-        /* Heading with span */
-        text-align: center;
-        /* Border and padding handled in .heading class below */
-    }
-
-    .about .row {
-        /* Grid layout */
+    .nav-section .navbar {
         display: flex;
         align-items: center;
-        /* Customize alignment if needed */
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        padding: 0 15px; /* vừa đủ để không sát mép */
     }
 
-    .about .image img {
-        /* Image styling */
-        width: 100%;
-        /* Customize width or height if needed */
+        .nav-section .navbar .logo {
+            height: 60px; /* giảm từ 100px xuống */
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .nav-section .navbar a {
+            color: var(--text-color);
+            font-weight: 400;
+            text-decoration: none;
+            padding: 3px 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+            .nav-section .navbar a:hover {
+                color: var(--highlight-color);
+                font-weight: 600;
+            }
+
+        .nav-section .navbar .brand-name {
+            font-weight: bold; /* Makes the brand name bold */
+            margin-left: 10px; /* Space between logo and brand name */
+            font-size: 1.2rem; /* Slightly larger for emphasis */
+            color: var(--text-color); /* Matches navigation text color */
+        }
+
+    .nav-section .buttons {
+        display: flex;
+        gap: 8px;
     }
 
-    .about .content h3 {
-        /* Subheading */
-        font-size: 1.8rem;
-        /* Adjust font-size if needed */
+    .nav-section .btn-auth {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+        background-color: var(--highlight-color);
+        color: #FFFFFF;
+        border: 1px solid var(--main-color);
+        transition: all 0.3s ease;
     }
 
-    .about .content p {
-        /* Paragraph text */
-        margin: 1rem 0;
-        /* Customize margin if needed */
-    }
+        .nav-section .btn-auth:hover {
+            background-color: #B99771;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
 
-/* Products and Menu Section Styles */
-.products, .menu {
-    /* Shared styling for products and menu */
-    /* No additional styling needed, relies on .section */
-    /* Customize section padding or margin if needed */
+/* ----------------------------------------- */
+/* Body để test scroll                       */
+/* ----------------------------------------- */
+body {
+    min-height: 150vh;
+    margin: 0;
 }
 
-    .products .heading, .menu .heading {
-        /* Heading with span */
-        text-align: center;
-        /* Border and padding handled in .heading class below */
-        /* Adjust text alignment if needed */
+/* ----------------------------------------- */
+/* Main Content Styles (Position: Body)      */
+/* ----------------------------------------- */
+.main-content {
+    background-color: var(--bg-color);
+    flex: 1; 
+}
+
+.page-wrapper {
+    flex-direction: column;
+    display: flex;
+    min-height: 100%;
+}
+
+html, body {
+    height: 100%; /* Chiếm 100% chiều cao màn hình */
+    margin: 0; /* Xóa margin mặc định của body */
+}
+
+/* Banner wrapper */
+    .banner {
+    position: relative;
+    width: 100%;
+    height: 50vh; /* Chiếm 50% chiều cao màn hình */
+    min-height: 300px; /* Không thấp hơn 300px */
+    max-height: 500px; /* Giữ banner gọn trên màn lớn */
+    overflow: hidden;
+}
+
+/* Container slide */
+.banner {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    min-height: 300px;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.banner-slides {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 2s ease;
+    overflow: hidden;
+}
+
+    /* nền mờ */
+    .banner-slide::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--bg) center/cover no-repeat;
+        filter: blur(20px);
+        transform: scale(1.1); /* tránh viền bị cắt khi blur */
+        z-index: 0;
     }
 
-    .products .filter-sidebar, .menu .filter-sidebar {
-        /* Sidebar for filtering */
+    /* ảnh chính */
+    .banner-slide::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--bg) center/contain no-repeat;
+        z-index: 1;
+    }
+
+    /* slide đầu tiên hiện ngay */
+    .banner-slide:first-child {
+        opacity: 1;
+    }
+
+
+
+
+/* Ensure uniform height and alignment for all form controls */
+.col-md-3 .form-control,
+.col-md-3 .form-select,
+.input-group .form-control {
+    height: 38px;
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Style the input group for search */
+.input-group {
+    width: 100%;
+}
+
+/* Ensure the search input fits within its column */
+#searchTerm:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+}
+
+/* Align labels and ensure consistent spacing */
+.col-md-3 .form-label {
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+}
+
+/* Custom search button design with icon */
+.btn-custom-search {
+    height: 38px;
+    width: 38px;
+    padding: 0;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    background-color: #8B4513;
+    color: #F5E8C7;
+    border: 1px solid #8B4513;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .btn-custom-search .fas {
+        font-size: 1rem;
+        color: #F5E8C7;
+    }
+
+    .btn-custom-search:hover {
+        background-color: #6F3610;
+        color: #F5E8C7;
+        font-weight: 600;
+    }
+
+/* Ensure the container wraps the columns properly */
+.row {
+    margin-bottom: 15px;
+}
+
+/* Product card styles */
+.product-card {
+    border: var(--border-color);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card .btn {
+    background-color: var(--main-color);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.product-card .btn:hover {
+    background-color: #6F3610; /* màu hover giống Contact */
+    color: #fff;
+}
+/* Menu item styles */
+.menu {
+    background-color: #D2B48C; /* giống Contact */
+    padding: 2rem 0;
+}
+
+.menu-item {
+    border: var(--border-color);
+    transition: transform 0.3s ease;
+}
+
+.menu .card {
+    background-color: #F5E8C7; /* giống form-control trong Contact */
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .menu .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+    }
+
+
+    .menu-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .menu-item .card-img-top {
+        height: 200px; /* Fixed height for balanced images */
+        object-fit: cover; /* Maintain aspect ratio and fill the space */
+    }
+
+    .menu-item .card-body {
         padding: 1rem;
-        /* Customize padding if needed */
     }
 
-    .products .row-cols-md-3, .menu .row-cols-md-3 {
-        /* Grid for cards */
-        /* No additional styling needed, uses Bootstrap */
-        /* Adjust grid columns if needed */
+    .menu-item .card-text.price {
+        font-weight: 600;
+        color: var(--main-color);
+        margin-bottom: 0.5rem;
     }
 
-.product-card, .menu-item {
-    /* Card styling */
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    /* Customize border or radius if needed */
-}
-
-    .product-card .card-img-top, .menu-item .card-img-top {
-        /* Default image dimensions */
-        width: 100%; /* Full width of card */
-        height: 200px; /* Fixed height for consistency */
-        object-fit: cover; /* Maintain aspect ratio, crop if necessary */
-        /* Customize width, height, or object-fit if needed */
+    .menu-item .card-text.flavor {
+        font-size: 0.875rem;
+        color: var(--text-color);
+        line-height: 1.2;
     }
 
-.price {
-    /* Price styling */
-    color: #e74c3c;
-    font-weight: bold;
-    /* Customize color or weight if needed */
-}
-
-/* Search Form Styles */
-.search-form {
-    /* Styling for the search form */
-    margin-bottom: 1rem; /* Space before product grid */
-    /* Customize margin if needed */
-}
-
-.search-form .form-label {
-    /* Label styling */
-    font-weight: bold;
-    /* Customize font-weight if needed */
-}
-
-.search-form .btn-primary {
-    /* Search button styling */
-    margin-top: 1.5rem; /* Align with input fields */
-    /* Customize margin or color if needed */
-}
-
-/* Reviews Section Styles */
-.reviews {
-    /* No additional styling needed, relies on .section */
-}
-
-    .reviews .heading {
-        /* Heading with span */
-        text-align: center;
-        /* Border and padding handled in .heading class below */
-    }
-
-/* Contact Section Styles */
-.contact {
-    /* No additional styling needed, relies on .section */
-}
-
-    .contact .heading {
-        /* Heading with span */
-        text-align: center;
-        /* Border and padding handled in .heading class below */
-    }
-
-    .contact iframe {
-        /* Map iframe */
-        width: 100%;
-        height: 300px;
-        border: 0;
-        /* Customize height if needed */
-    }
-
-/* Blogs Section Styles */
-.blogs {
-    /* No additional styling needed, relies on .section */
-}
-
-    .blogs .heading {
-        /* Heading with span */
-        text-align: center;
-        /* Border and padding handled in .heading class below */
-    }
-
-/* General Heading Styles */
+/* Heading styles */
 .heading {
-    /* Consistent heading style */
-    border-bottom: 2px solid #4A2C2A; /* Matches text-color */
-    padding-bottom: 10px;
-    padding-top: 10px;
-    /* Customize border or padding if needed */
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 1.5rem; /* Padding above */
+    margin-bottom: 1.5rem; /* Padding below */
+    position: relative; /* Required for positioning pseudo-elements */
 }
+
+    .heading::before,
+    .heading::after {
+        content: '';
+        display: block;
+        width: 700px; /* Length of the bars */
+        height: 2px; /* Thickness of the bars */
+        background-color: var(--main-color); /* Match the span color */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%); /* Center the bars */
+    }
+
+    .heading::before {
+        top: -10px; /* Position above the text */
+    }
+
+    .heading::after {
+        bottom: -10px; /* Position below the text */
+    }
 
     .heading span {
-        /* Span within heading */
         color: var(--main-color);
-        /* Customize color if needed */
     }
 
-/* Button Styles */
-.btn {
-    /* General button styling */
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background: var(--main-color);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    /* Customize padding or color here if needed */
+/* Home section styles */
+.home {
+    background-image: url('/images/home/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: #D2B48C; /* cùng tone Contact */
+    padding: 4rem 0;
 }
 
-/* Animation (Commented for customization) */
-/* @keyframes slide {
-    from {
-        background-position: 0 0;
+    .home .image img {
+        max-width: 100%;
+        height: auto;
     }
-    to {
-        background-position: -100% 0;
+
+    .home .content {
+        background-color: #F5E8C7; /* tone be mềm như Contact */
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-} */
+
+    .home .left-content,
+    .home .right-content {
+        padding: 1rem;
+    }
+
+        .home .left-content h3 {
+            color: #4B2E2E;
+            font-weight: 700;
+            margin-bottom: 1rem;    
+        }
+
+        .home .left-content p {
+            font-size: 1rem;
+        }
+
+        .home .right-content p {
+            font-size: 1rem;
+        }
+
+        .home .right-content .btn {
+            background-color: var(--main-color);
+            color: #FFFFFF;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .home .right-content .btn:hover {
+                background-color: #6F3610;
+                color: #FFFFFF;
+            }
+
+/* about content*/
+.about .content .btn {
+    background-color: var(--main-color);
+    color: #FFFFFF;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+    .about .content .btn:hover {
+        background-color: #6F3610;
+        color: #FFFFFF;
+    }
+
+/* News section styles */
+.news .card {
+    border: var(--border-color);
+}
+
+/* Contact section styles */
+.contact {
+    background-color: #D2B48C;
+    padding: 2rem 0;
+}
+
+    .contact .content {
+        background-color: #F5E8C7; /* tone be mềm như Contact */
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .contact .form-control {
+        background-color: #F5E8C7;
+    }
+/* Contact Section Button */
+.contact .btn {
+    background-color: var(--main-color);
+    color: #FFFFFF;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border: none;
+    transition: all 0.3s ease;
+    border-radius: 5px; /* nhẹ nhàng hơn */
+}
+
+.contact .btn:hover {
+    background-color: #6F3610;
+    color: #FFFFFF;
+}
+
+/* Button style (Register CTA) - giống Home */
+.content-box {
+    background-color: #F5E8C7; /* tone be mềm */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ----------------------------------------- */
+/* Footer Styles (Position: Bottom of Page)  */
+/* ----------------------------------------- */
+footer.footer {
+    background-color: var(--main-color) !important;
+    color: var(--bg-color) !important;
+    border-top: var(--border-color);
+    padding: 10px 0;
+}
+
+    footer.footer p {
+        color: var(--bg-color);
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+/* Product Details Styles */
+.container .price {
+    font-weight: 600;
+    color: var(--main-color);
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.container .description {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.container .add-to-cart {
+    margin-top: 10px;
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    top: 60px; /* Below the sticky nav */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+    z-index: 1001; /* Above sticky nav */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+    .notification .alert-link {
+        font-weight: 600;
+        color: var(--highlight-color);
+        text-decoration: underline;
+    }
+
+        .notification .alert-link:hover {
+            color: #B99771;
+        }

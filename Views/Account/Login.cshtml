@@ -1,16 +1,84 @@
 ﻿@model manage_coffee_shop_web.ViewModels.LoginViewModel
 
-<h2>Đăng nhập</h2>
-<form asp-action="Login" method="post">
-    <div>
-        <label>Email</label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
+<div class="auth-container">
+    <div class="auth-box">
+        <h2 class="auth-title">Đăng nhập</h2>
+        <form asp-action="Login" method="post">
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn-auth">Đăng nhập</button>
+        </form>
+        <p class="auth-footer">Chưa có tài khoản? <a asp-action="Register">Đăng ký</a></p>
     </div>
-    <div>
-        <label>Mật khẩu</label>
-        <input asp-for="Password" type="password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <button type="submit">Đăng nhập</button>
-</form>
+</div>
+
+<style>
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+        background-color: #F5E8C7;
+    }
+
+    .auth-box {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .auth-title {
+        margin-bottom: 1.5rem;
+        color: #4B3832;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    .btn-auth {
+        background-color: #6F4E37;
+        color: #fff;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+        .btn-auth:hover {
+            background-color: #4B3832;
+        }
+
+    .auth-footer {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+        .auth-footer a {
+            color: #6F4E37;
+            text-decoration: none;
+            font-weight: bold;
+        }
+</style>

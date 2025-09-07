@@ -10,17 +10,50 @@
 }
 
 <!-- Banner Section -->
-<div class="banner" style="text-align: center; margin-bottom: 2rem;">
-    <img src="@ViewBag.BannerImagePath" alt="Banner" style="max-width: 100%; height: auto;" />
+<div class="banner mb-5">
+    <div class="banner-slides"></div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const slidesContainer = document.querySelector(".banner-slides");
+        const banners = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.Banners ?? new List<Banner>()));
+
+        if (banners.length > 0) {
+            let slideIndex = 0;
+
+            slidesContainer.innerHTML = banners.map(banner =>
+                `<div class="banner-slide" style="--bg:url('${banner.Image}')"></div>`
+            ).join('');
+
+            function showSlide(index) {
+                const slides = document.querySelectorAll(".banner-slide");
+                if (index >= slides.length) slideIndex = 0;
+                if (index < 0) slideIndex = slides.length - 1;
+                slides.forEach((slide, i) => {
+                    slide.style.opacity = 0;
+                    if (i === slideIndex) slide.style.opacity = 1;
+                });
+            }
+
+            function nextSlide() {
+                slideIndex++;
+                showSlide(slideIndex);
+            }
+
+            showSlide(slideIndex);
+            setInterval(nextSlide, 8000);
+        }
+    });
+</script>
 
 <!-- Products Section (#US002) -->
 <section class="products" id="products">
     <div class="container">
-        <h1 class="heading"><span>Our</span> Products</h1>
+        <h1 class="heading"><span>SẢN</span> PHẨM</h1>
         <!-- Advanced Search Form -->
         <form asp-action="Index" asp-controller="Home" method="get" class="search-form">
-            <div class="row mb-3">
+            <div class="row align-items-end">
                 <div class="col-md-3">
                     <label for="categoryId" class="form-label">Category</label>
                     <select class="form-select" id="categoryId" name="categoryId">
@@ -41,22 +74,24 @@
                                 }
                             }
                         }
-                    </select>  
+                    </select>
                 </div>
                 <div class="col-md-3">
-                    <label for="searchTerm" class="form-label">Product Name</label>
-                    <input type="text" class="form-control" id="searchTerm" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Enter name..." />
+                    <label for="searchTerm" class="form-label">Tên Sản Phẩm</label>
+                    <input type="text" class="form-control" id="searchTerm" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Nhập Tên Sản Phẩm..." />
                 </div>
                 <div class="col-md-3">
-                    <label for="minPrice" class="form-label">Min Price</label>
-                    <input type="number" class="form-control" id="minPrice" name="minPrice" value="@ViewBag.MinPrice" min="0" step="0.01" placeholder="Min..." />
+                    <label for="minPrice" class="form-label">Gía từ thấp</label>
+                    <input type="number" class="form-control" id="minPrice" name="minPrice" value="@ViewBag.MinPrice" min="0" step="0.01" placeholder="Gía từ thấp..." />
                 </div>
-                <div class="col-md-3">
-                    <label for="maxPrice" class="form-label">Max Price</label>
-                    <input type="number" class="form-control" id="maxPrice" name="maxPrice" value="@ViewBag.MaxPrice" min="0" step="0.01" placeholder="Max..." />
+                <div class="col-md-2">
+                    <label for="maxPrice" class="form-label">Gía tối đa</label>
+                    <input type="number" class="form-control" id="maxPrice" name="maxPrice" value="@ViewBag.MaxPrice" min="0" step="0.01" placeholder="Gía tối đa..." />
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-custom-search"><i class="fas fa-search"></i></button>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
         </form>
         <div class="row">
             <div class="col-md-12">
@@ -70,9 +105,8 @@
                                 </a>
                                 <div class="card-body">
                                     <h5 class="card-title">@product.Name</h5>
-                                    <p class="card-text price">@product.Price</p>
-                                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-sm">View Details</a>
-                                    <a href="#" class="btn btn-sm btn-success add-to-cart mt-2" data-id="@product.Id">Add to Cart</a>
+                                    <p class="card-text price">@string.Format("{0:N0} VNĐ", product.Price)</p>
+                                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-sm btn-success mt-2">Xem Chi Tiết</a>
                                 </div>
                             </div>
                         </div>
@@ -84,180 +118,220 @@
 </section>
 
 <!-- Home Section (#US001) -->
-<section class="home" id="home">
-    <div class="content">
-        <h3>Fresh Coffee with BOTT COFFEE</h3>
-        <p>
-            “Cà phê luôn đậm đà, thơm mới, nhân viên thân thiện và không gian ấm cúng.
-            Đây là quán ruột của tôi – đặc biệt thích các hương vị theo mùa!”
-            <br>
-            <strong>Jane D., Khách hàng thân thiết</strong>
-        </p>
-        <a href="#products" class="btn">Get Yours Now</a>
+<section class="home" id="home" style="background-image: url('/images/home/background.jpg');">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="image">
+                    <img src="/images/home/home-img.jpg" alt="Home Image" class="img-fluid" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="content right-content">
+                    <h3>Fresh Coffee with Chicken COFFEE</h3>
+                    <p>
+                        “Hạt cà phê luôn tươi mới, rang xay chuẩn gu.
+                        Bộ dụng cụ pha chế chất lượng giúp tôi dễ dàng tự làm cà phê tại nhà.
+                        Rất hài lòng với dịch vụ của BOTT COFFEE!”
+                        <br>
+                        <strong>Bình Gold., Khách hàng thân thiết</strong>
+                    </p>
+                    <p>Khám phá các dòng hạt cà phê và dụng cụ pha chế được tuyển chọn dành riêng cho bạn.</p>
+                    <a href="#products" class="btn">Mua Ngay</a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- About Section -->
 <section class="about" id="about">
     <div class="container">
-        <h1 class="heading"><span>About</span> Us</h1>
+        <h1 class="heading"><span>VỀ</span> CHÚNG TÔI</h1>
         <div class="row">
             <div class="image col-md-6">
                 <img src="/images/home/about-img.png" alt="About Us" class="img-fluid">
             </div>
             <div class="content col-md-6">
-                <h3>Điều Gì Làm Cà Phê Chúng Tôi Đặc Biệt?</h3>
+                <h3>Điều Gì Làm Chúng Tôi Khác Biệt?</h3>
                 <p>
-                    Từ những góc vỉa hè quen thuộc, nơi hương cà phê rang hòa cùng nhịp sống đô thị, chúng tôi mang đến những ly cà phê đậm đà và trà thanh mát.
+                    Chúng tôi không chỉ cung cấp <b>các loại hạt cà phê nguyên chất</b> tuyển chọn từ nhiều vùng trồng nổi tiếng,
+                    mà còn mang đến <b>tool và dụng cụ pha chế chuyên nghiệp</b> giúp bạn tạo ra những ly cà phê chuẩn gu ngay tại nhà hay quán.
                 </p>
                 <p>
-                    Mỗi tách đều được chăm chút để bạn tìm thấy năng lượng tích cực cho ngày mới, sự tỉnh táo cho công việc và chút bình yên giữa guồng quay bận rộn. Ở đây, cà phê và trà không chỉ để thưởng thức, mà còn để kết nối con người và câu chuyện.
+                    Mỗi sản phẩm đều được chọn lọc kỹ lưỡng để đảm bảo <b>chất lượng, độ bền và sự tiện dụng</b>.
+                    Chúng tôi tin rằng, một trải nghiệm cà phê tuyệt vời bắt đầu từ <b>hạt cà phê tinh khiết</b>
+                    và <b>công cụ pha chế phù hợp</b>.
                 </p>
-                <a href="#" class="btn">Learn More</a>
+                <a asp-area="" asp-controller="Account" asp-action="Register" class="btn">Đăng Ký</a>
             </div>
         </div>
     </div>
 </section>
-
-
 
 <!-- Menu Section (#US006, #US007) -->
 <section class="menu" id="menu">
     <div class="container">
-        <h1 class="heading"><span>Our</span> Product</h1>
+        <h1 class="heading"><span>COFFEE</span> CỦA QUÁN</h1>
         <div class="row">
-            <div class="col-md-3 filter-sidebar">
-                <h5>Filter by Category</h5>
-                <select class="form-select mb-3" id="menuFilter">
-                    <option value="">All Categories</option>
-                    @foreach (var category in ViewBag.MenuCategories ?? Enumerable.Empty<dynamic>())
-                    {
-                        <option value="@category.Id">@category.Name</option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    @foreach (var item in ViewBag.MenuItems ?? Enumerable.Empty<dynamic>())
-                    {
-                        <div class="col">
-                            <div class="card menu-item @(item.IsFeatured ? "border-primary" : "") h-100">
-                                <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name" loading="lazy" />
-                                <div class="card-body">
-                                    <h5 class="card-title">@item.Name @(item.IsFeatured ? "<span class='badge bg-success'>Featured</span>" : "")</h5>
-                                    <p class="card-text price">@item.Price</p>
-                                    <a href="@Url.Action("Details", "Menu", new { id = item.Id })" class="btn btn-sm">View Details</a>
-                                </div>
+                    <div class="col">
+                        <div class="card menu-item h-100">
+                            <img src="/images/product-img/CoffeeDen.jpg" class="card-img-top" alt="Coffee Đen" loading="lazy" />
+                            <div class="card-body">
+                                <h5 class="card-title">Coffee Đen</h5>
+                                <p class="card-text price">15000 VNĐ</p>
+                                <p class="card-text flavor">Hương vị đậm đà, mạnh mẽ với hậu vị nhẹ nhàng của Robusta rang xay.</p>
                             </div>
                         </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Reviews Section -->
-<section class="reviews" id="reviews">
-    <div class="container">
-        <h1 class="heading"><span>Customer</span> Reviews</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            @foreach (var review in ViewBag.Reviews ?? Enumerable.Empty<dynamic>())
-            {
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <p class="card-text">@review.Content</p>
-                            <img src="@review.UserImageUrl" alt="@review.UserName" class="rounded-circle mt-3" style="width: 50px; height: 50px;" />
-                            <h6 class="mt-2">@review.UserName</h6>
-                            <div class="stars">
-                                @for (int i = 1; i <= 5; i++)
-                                {
-                                    <i class="fas fa-star @(i <= review.Rating ? "" : "fa-star-o")"></i>
-                                }
+                    </div>
+                    <div class="col">
+                        <div class="card menu-item h-100">
+                            <img src="/images/product-img/CoffeeSua.jpg" class="card-img-top" alt="Coffee Sữa" loading="lazy" />
+                            <div class="card-body">
+                                <h5 class="card-title">Coffee Sữa</h5>
+                                <p class="card-text price">17000 VNĐ</p>
+                                <p class="card-text flavor">Kết hợp đắng nhẹ của cà phê và ngọt ngào, béo ngậy của sữa đặc.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card menu-item h-100">
+                            <img src="/images/product-img/Americano.jpg" class="card-img-top" alt="Americano" loading="lazy" />
+                            <div class="card-body">
+                                <h5 class="card-title">Americano</h5>
+                                <p class="card-text price">20000 VNĐ</p>
+                                <p class="card-text flavor">Hương thơm nhẹ, vị cà phê thanh thoát với nước nóng hòa quyện.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card menu-item h-100">
+                            <img src="/images/product-img/Cappuccino.jpg" class="card-img-top" alt="Cappuccino" loading="lazy" />
+                            <div class="card-body">
+                                <h5 class="card-title">Cappuccino</h5>
+                                <p class="card-text price">20000 VNĐ</p>
+                                <p class="card-text flavor">Vị cà phê đậm kết hợp với bọt sữa mịn, chút ngọt nhẹ từ đường.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card menu-item h-100">
+                            <img src="/images/product-img/CoffeeMuoi.jpg" class="card-img-top" alt="Coffee Muối" loading="lazy" />
+                            <div class="card-body">
+                                <h5 class="card-title">Coffee Muối</h5>
+                                <p class="card-text price">25000 VNĐ</p>
+                                <p class="card-text flavor">Hương vị độc đáo với chút mặn nhẹ, hòa quyện cùng vị đắng của cà phê.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card menu-item h-100">
+                            <img src="/images/product-img/CoffeeTrung.jpg" class="card-img-top" alt="Coffee Trứng" loading="lazy" />
+                            <div class="card-body">
+                                <h5 class="card-title">Coffee Trứng</h5>
+                                <p class="card-text price">25000 VNĐ</p>
+                                <p class="card-text flavor">Hương vị béo ngậy của trứng gà kết hợp với đắng nhẹ của cà phê.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Contact Section (#US009, #US010) -->
+<!-- News Section (Formerly Reviews) -->
+<section class="news" id="news">
+    <div class="container">
+        <h1 class="heading"><span>Tin Tức</span> & Bài Viết</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Ra Mắt Dòng Hạt Cà Phê Mới</h5>
+                        <p class="card-text">
+                            Khám phá hương vị độc đáo từ lô hạt cà phê rang xay mới nhất –
+                            được tuyển chọn kỹ lưỡng từ nông trại chất lượng cao.
+                        </p>
+                        <p class="text-muted">Xuất bản ngày 01/09/2025</p>
+                        <a href="#" class="btn btn-sm">Xem Thêm</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Dụng Cụ Pha Chế Mới Về</h5>
+                        <p class="card-text">
+                            Bộ sưu tập tool pha cà phê chuyên nghiệp đã có mặt,
+                            giúp bạn dễ dàng tạo nên ly cà phê chuẩn barista ngay tại nhà.
+                        </p>
+                        <p class="text-muted">Xuất bản ngày 03/09/2025</p>
+                        <a href="#" class="btn btn-sm">Xem Thêm</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Khai Trương Showroom Mới</h5>
+                        <p class="card-text">
+                            Trải nghiệm trực tiếp các loại hạt cà phê và dụng cụ pha chế
+                            tại showroom mới của chúng tôi ở Quận 1.
+                        </p>
+                        <p class="text-muted">Xuất bản ngày 05/09/2025</p>
+                        <a href="#" class="btn btn-sm">Xem Thêm</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Contact Section -->
 <section class="contact" id="contact">
     <div class="container">
         <h1 class="heading"><span>Contact</span> Us</h1>
         <div class="row">
+            <!-- Left: Map + Info -->
             <div class="col-md-6">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.0987465358617!2d106.6372448509867!3d10.72686676604185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ff232d1450b%3A0x3659e3c94323e995!2sCoffee%20BOTT!5e0!3m2!1sen!2s!4v1753882951554!5m2!1sen!2s" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.0987465358617!2d106.6372448509867!3d10.72686676604185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ff232d1450b%3A0x3659e3c94323e995!2sCoffee%20BOTT!5e0!3m2!1sen!2s!4v1753882951554!5m2!1sen!2s"
+                        width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"></iframe>
                 <p class="mt-3"><i class="fas fa-map-marker-alt"></i> 123 Coffee St, Ho Chi Minh City</p>
                 <p><i class="fas fa-phone"></i> +84 123 456 789</p>
                 <p><i class="fas fa-envelope"></i> info@coffeehaven.com</p>
                 <p><i class="fas fa-clock"></i> Mon-Fri: 8 AM - 10 PM</p>
             </div>
-            <div class="col-md-6">
-                <form id="contactForm" method="post" asp-action="Contact" asp-controller="Home" class="needs-validation" novalidate>
-                    <h3>Get in Touch</h3>
-                    <div class="mb-3">
-                        <input type="text" class="form-control" name="Name" placeholder="Your Name" required />
-                        <div class="invalid-feedback">Please enter your name.</div>
-                    </div>
-                    <div class="mb-3">
-                        <input type="email" class="form-control" name="Email" placeholder="Your Email" required />
-                        <div class="invalid-feedback">Please enter a valid email.</div>
-                    </div>
-                    <div class="mb-3">
-                        <input type="tel" class="form-control" name="Phone" placeholder="Your Phone" required />
-                        <div class="invalid-feedback">Please enter a valid phone number.</div>
-                    </div>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
-                <div id="contactMessage" class="mt-2 text-success" style="display:none;"></div>
+
+            <!-- Right: CTA -->
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center">
+                <div class="content-box">
+                    <h3 class="mb-3">Trở thành khách hàng thân thiết của chúng tôi!</h3>
+                    <p class="mb-4">Đăng ký ngay để nhận ưu đãi, tin tức và trải nghiệm dịch vụ tốt nhất.</p>
+                    <a asp-area="" asp-controller="Account" asp-action="Register" class="btn">Đăng Ký Ngay</a>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Blogs Section (#US008) -->
-<section class="blogs" id="blogs">
-    <div class="container">
-        <h1 class="heading"><span>Our</span> Blogs</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            @foreach (var blog in ViewBag.Blogs ?? Enumerable.Empty<dynamic>())
-            {
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="@blog.ImageUrl" class="card-img-top" alt="@blog.Title" loading="lazy" />
-                        <div class="card-body">
-                            <h5 class="card-title">@blog.Title</h5>
-                            <p class="card-text">@blog.Content.Substring(0, 100)...</p>
-                            <p class="text-muted">by @blog.Author on @blog.Date.ToString("dd/MM/yyyy")</p>
-                            <a href="@Url.Action("Details", "Blog", new { id = blog.Id })" class="btn btn-sm">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-        <nav class="mt-4">
-            <ul class="pagination justify-content-center">
-                @for (int i = 1; i <= ViewBag.TotalPages; i++)
-                {
-                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                        <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
-                    </li>
-                }
-            </ul>
-        </nav>
-    </div>
-</section>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const banner = document.querySelector(".banner");
         const imagePath = banner.getAttribute("data-image");
         if (imagePath) {
+            // Keep the image visible if background fails
             banner.style.backgroundImage = `url('${imagePath}')`;
+        } else {
+            banner.querySelector("img").style.display = "block"; // Ensure image is visible as fallback
         }
     });
 
