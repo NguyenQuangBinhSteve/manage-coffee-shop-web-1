@@ -1,5 +1,6 @@
 ﻿using manage_coffee_shop_web.Areas.Admin.Services; // #1: Added namespace for AdminDashboardService
 using manage_coffee_shop_web.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization; // #3: Added for request localization
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,25 @@ builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Admin/AdminDashBoard/Logout"; // Optional: Customize logout path
+        options.LogoutPath = "/Account/Logout";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromSeconds(1); // Set a very short expiration
+        options.SlidingExpiration = true; // Refresh expiration on activity
+        options.Cookie.IsEssential = true; // Ensure cookie is not persistent by default
+        options.Cookie.MaxAge = TimeSpan.FromSeconds(1); // Limit cookie lifetime to 1 second
+    });
+builder.Services.AddLogging(logging => logging.AddConsole()); // Enable console logging
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration); // Ensure IConfiguration is available
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDb")));
+
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor(); // Required for IHttpContextAccessor
 
 // #1: Register AdminDashboardService
 builder.Services.AddScoped<AdminDashboardService>();
@@ -104,7 +121,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 

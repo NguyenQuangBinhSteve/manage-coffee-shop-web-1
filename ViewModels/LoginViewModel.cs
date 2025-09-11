@@ -4,12 +4,15 @@ namespace manage_coffee_shop_web.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Vui lòng nhập email.")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Display(Name = "Nhớ mật khẩu?")]
+        public bool RememberMe { get; set; } = false; // Default to false
     }
 }

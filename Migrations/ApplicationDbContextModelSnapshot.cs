@@ -236,6 +236,75 @@ namespace manage_coffee_shop_web.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("manage_coffee_shop_web.Models.ArchivedOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ArchivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("ArchivedOrders");
+                });
+
+            modelBuilder.Entity("manage_coffee_shop_web.Models.ArchivedOrderDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ArchivedOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArchivedOrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ArchivedOrderDetails");
+                });
+
             modelBuilder.Entity("manage_coffee_shop_web.Models.Banner", b =>
                 {
                     b.Property<int>("Id")
@@ -386,12 +455,27 @@ namespace manage_coffee_shop_web.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Feedbacks");
                 });
@@ -466,7 +550,8 @@ namespace manage_coffee_shop_web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -549,6 +634,34 @@ namespace manage_coffee_shop_web.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("manage_coffee_shop_web.Models.ArchivedOrder", b =>
+                {
+                    b.HasOne("manage_coffee_shop_web.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("manage_coffee_shop_web.Models.ArchivedOrderDetail", b =>
+                {
+                    b.HasOne("manage_coffee_shop_web.Models.ArchivedOrder", "ArchivedOrder")
+                        .WithMany("ArchivedOrderDetails")
+                        .HasForeignKey("ArchivedOrderId");
+
+                    b.HasOne("manage_coffee_shop_web.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ArchivedOrder");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("manage_coffee_shop_web.Models.Cart", b =>
                 {
                     b.HasOne("manage_coffee_shop_web.Models.ApplicationUser", "ApplicationUser")
@@ -587,7 +700,15 @@ namespace manage_coffee_shop_web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("manage_coffee_shop_web.Models.Product", "Product")
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ApplicationUser");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("manage_coffee_shop_web.Models.Order", b =>
@@ -636,6 +757,11 @@ namespace manage_coffee_shop_web.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("manage_coffee_shop_web.Models.ArchivedOrder", b =>
+                {
+                    b.Navigation("ArchivedOrderDetails");
+                });
+
             modelBuilder.Entity("manage_coffee_shop_web.Models.Cart", b =>
                 {
                     b.Navigation("CartItems");
@@ -653,6 +779,8 @@ namespace manage_coffee_shop_web.Migrations
 
             modelBuilder.Entity("manage_coffee_shop_web.Models.Product", b =>
                 {
+                    b.Navigation("Feedbacks");
+
                     b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618

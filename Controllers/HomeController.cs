@@ -47,13 +47,13 @@ namespace manage_coffee_shop_web.Controllers
                 ? GetProductsFromDatabase() // Default products if no search parameters
                 : AdvancedSearch(categoryId, searchTerm, minPrice, maxPrice); // Advanced search if parameters provided
 
-            ViewBag.Products = products;
+            _logger.LogInformation("Products retrieved for Index: Count={Count}", products?.Count ?? 0);
             ViewBag.SelectedCategoryId = categoryId; // Maintain as int?
             ViewBag.SearchTerm = searchTerm;
             ViewBag.MinPrice = minPrice;
             ViewBag.MaxPrice = maxPrice;
 
-            return View();
+            return View(products ?? new List<Product>());
         }
 
         private List<Product> GetProductsFromDatabase(int? categoryId, string searchTerm, decimal? minPrice, decimal? maxPrice)

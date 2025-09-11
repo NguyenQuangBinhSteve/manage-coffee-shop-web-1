@@ -41,7 +41,12 @@
                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span> Menu
                 </button>
-                <a class="navbar-brand" asp-area="Admin" asp-controller="AdminDashBoard" asp-action="Index">Admin Panel</a>
+                <div class="d-flex align-items-center">
+                    <a class="navbar-brand" asp-area="Admin" asp-controller="AdminDashBoard" asp-action="Index">Admin Panel</a>
+                    <form asp-area="Admin" asp-controller="AdminDashBoard" asp-action="Logout" method="post" class="ms-3">
+                        <button type="submit" class="btn btn-danger">Exit</button>
+                    </form>
+                </div>
             </div>
         </nav>
 
@@ -70,6 +75,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">Manage Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Admin" asp-controller="TransactionHistory" asp-action="Index">Transaction History</a>
                     </li>
                 </ul>
             </div>

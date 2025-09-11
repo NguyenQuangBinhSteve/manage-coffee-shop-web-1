@@ -1,0 +1,38 @@
+﻿@model List<manage_coffee_shop_web.Models.Product>
+
+@{
+    ViewData["Title"] = "Danh Mục Sản Phẩm";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Search Bar (Left Side) -->
+        <div class="col-md-3">
+            <div class="search-bar">
+                <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm sản phẩm..." />
+                <button class="btn btn-primary mt-2" id="searchButton">Tìm</button>
+            </div>
+        </div>
+
+        <!-- Product List (Right Side) -->
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-3 g-4" id="productList">
+                @foreach (var product in Model ?? Enumerable.Empty<manage_coffee_shop_web.Models.Product>())
+                {
+                    <div class="col">
+                        <div class="card product-card h-100">
+                            <a href="@Url.Action("Details", "Product", new { id = product.Id })">
+                                <img src="@product.Image" class="card-img-top" alt="@product.Name" loading="lazy" />
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Name</h5>
+                                <p class="card-text price">@string.Format("{0:N0} VNĐ", product.Price)</p>
+                                <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-sm btn-success mt-2">Xem Chi Tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

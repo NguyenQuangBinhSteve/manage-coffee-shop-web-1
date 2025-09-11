@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán Thành công";
+}
+
+<div class="auth-container">
+    <div class="auth-box">
+        <h2 class="auth-title">Thanh toán Thành công</h2>
+        <!-- Notification -->
+        @if (TempData["PaymentSuccess"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["PaymentSuccess"]
+            </div>
+        }
+        <!-- JavaScript for delay -->
+        <script>
+            // Delay redirection for 3 seconds (adjust as needed)
+            setTimeout(function() {
+                window.location.href = '@Url.Action("Index", "Home")';
+            }, 3000); // 3000 milliseconds = 3 seconds
+        </script>
+    </div>
+</div>
+
+<style>
+    :root {
+        --main-color: #8B4513;
+        --text-color: #4A2C2A;
+        --bg-color: #F5E8C7;
+        --highlight-color: #D2B48C;
+        --border-color: 0.1rem solid rgba(139, 69, 19, 0.2);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto Mono', monospace;
+    }
+
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+        background-color: #F5E8C7;
+    }
+
+    .auth-box {
+        background: #D2B48C;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .auth-title {
+        margin-bottom: 1.5rem;
+        color: #4B3832;
+    }
+
+    .alert {
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+</style>

@@ -12,7 +12,7 @@ namespace manage_coffee_shop_web.Models
 
         public ApplicationUser ApplicationUser { get; set; } // Navigation property
 
-        public ICollection<CartItem> CartItems { get; set; } // Danh sách các item trong giỏ
+        public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>(); // Danh sách các item trong giỏ, Initialized collection
     }
     public class CartItem
     {
@@ -27,7 +27,7 @@ namespace manage_coffee_shop_web.Models
 
         [Required]
         [Range(1, int.MaxValue)]
-        public int Quantity { get; set; } // Số lượng
+        public int Quantity { get; set; } = 1; // Số lượng Default to 1
 
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; } // Giá tại thời điểm thêm vào giỏ 

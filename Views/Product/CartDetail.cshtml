@@ -1,0 +1,131 @@
+﻿@model manage_coffee_shop_web.Models.Cart
+
+<h2>Chi Tiết Giỏ Hàng</h2>
+
+@if (Model.CartItems.Any())
+{
+    <form asp-action="DeleteSelectedItems" asp-controller="Product" method="post">
+        <table class="table-cart">
+            <thead>
+                <tr>
+                    <th>Chọn</th>
+                    <th>Sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td><input type="checkbox" name="itemIds" value="@item.ProductId" /></td>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@string.Format("{0:N0} VNĐ", item.Price)</td>
+                        <td>@string.Format("{0:N0} VNĐ", item.Price * item.Quantity)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <p><strong>Tổng cộng:</strong> @string.Format("{0:N0} VNĐ", Model.CartItems.Sum(ci => ci.Price * ci.Quantity))</p>
+
+        <button type="submit" class="btn btn-danger">Xóa Đã Chọn</button>
+    </form>
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <form asp-action="Checkout" asp-controller="Product" method="get">
+            <button type="submit" class="btn btn-success">Thanh Toán</button>
+        </form>
+    }
+    else
+    {
+        <form asp-action="Checkout" asp-controller="Product" method="get">
+            <button type="submit" class="btn btn-success"
+                    onclick="alert('Vui lòng đăng nhập hoặc đăng ký để thanh toán.');
+                                     window.location.href = '/Account/Login'; return false;">
+                Thanh Toán
+            </button>
+        </form>
+    }
+}
+else
+{
+    <p>Giỏ hàng trống.</p>
+}
+
+<a href="@Url.Action("Index", "Product")" class="btn btn-secondary">Quay Lại</a>
+
+<style>
+    :root {
+        --main-color: #8B4513;
+        --text-color: #4A2C2A;
+        --bg-color: #F5E8C7;
+        --highlight-color: #D2B48C;
+        --border-color: 0.1rem solid rgba(139, 69, 19, 0.2);
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--main-color);
+        margin: 2rem 0;
+        border-bottom: 2px solid var(--highlight-color);
+        padding-bottom: 0.3rem;
+        display: block; /* mặc định rồi nhưng ghi cho chắc */
+        width: 100%; /* chiếm hết chiều ngang */
+    }
+
+    .table-cart {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+        background: #fff;
+    }
+
+        .table-cart th, .table-cart td {
+            border: var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .table-cart th {
+            background-color: var(--highlight-color);
+            color: var(--text-color);
+        }
+
+        .table-cart tr:nth-child(even) {
+            background-color: #faf3e0;
+        }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 0.25rem 0.25rem 0 0;
+    }
+
+    .btn-success {
+        background-color: var(--main-color);
+        color: #fff;
+    }
+
+    .btn-danger {
+        background-color: crimson;
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background-color: gray;
+        color: #fff;
+    }
+</style>

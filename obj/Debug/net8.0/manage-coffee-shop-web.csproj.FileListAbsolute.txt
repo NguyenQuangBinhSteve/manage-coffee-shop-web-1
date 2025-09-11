@@ -221,7 +221,6 @@ D:\agileproject\manage-coffee-shop-web\obj\Debug\net8.0\staticwebassets.build.js
 D:\agileproject\manage-coffee-shop-web\obj\Debug\net8.0\staticwebassets.build.json.cache
 D:\agileproject\manage-coffee-shop-web\obj\Debug\net8.0\staticwebassets.development.json
 D:\agileproject\manage-coffee-shop-web\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\agileproject\manage-coffee-shop-web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\agileproject\manage-coffee-shop-web\obj\Debug\net8.0\manage-c.49A99B67.Up2Date
 D:\agileproject\manage-coffee-shop-web\obj\Debug\net8.0\manage-coffee-shop-web.dll
 D:\agileproject\manage-coffee-shop-web\obj\Debug\net8.0\refint\manage-coffee-shop-web.dll
@@ -1716,3 +1715,4 @@ D:\agileproject\manage-coffee-shop-web\manage-coffee-shop-web-main\obj\Debug\net
 D:\agileproject\manage-coffee-shop-web\manage-coffee-shop-web-main\obj\Debug\net8.0\manage-coffee-shop-web.pdb
 D:\agileproject\manage-coffee-shop-web\manage-coffee-shop-web-main\obj\Debug\net8.0\manage-coffee-shop-web.genruntimeconfig.cache
 D:\agileproject\manage-coffee-shop-web\manage-coffee-shop-web-main\obj\Debug\net8.0\ref\manage-coffee-shop-web.dll
+D:\agileproject\manage-coffee-shop-web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

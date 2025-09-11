@@ -1,0 +1,101 @@
+﻿@model manage_coffee_shop_web.ViewModels.VerifyOtpViewModel
+
+<div class="auth-container">
+    <div class="auth-box">
+        <h2 class="auth-title">Xác Nhận Mã OTP</h2>
+        <form asp-action="VerifyOtp" method="post">
+            <div class="form-group">
+                <label asp-for="Otp">Nhập mã OTP</label>
+                <input asp-for="Otp" class="form-control" />
+                <span asp-validation-for="Otp" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn-auth">Xác Nhận</button>
+        </form>
+        <p class="auth-footer"><a asp-action="ForgotPassword">Gửi lại mã OTP</a></p>
+    </div>
+</div>
+
+<style>
+    :root {
+        --main-color: #8B4513;
+        --text-color: #4A2C2A;
+        --bg-color: #F5E8C7;
+        --highlight-color: #D2B48C;
+        --border-color: 0.1rem solid rgba(139, 69, 19, 0.2);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto Mono', monospace;
+    }
+
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+        background-color: #F5E8C7;
+    }
+
+    .auth-box {
+        background: #D2B48C;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .auth-title {
+        margin-bottom: 1.5rem;
+        color: #4B3832;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.6rem;
+        border: 0.1rem solid rgba(139, 69, 19, 0.2);
+        border-radius: 8px;
+    }
+
+    .btn-auth {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        border: 1px solid var(--text-color);
+        padding: 5px 12px;
+        font-size: 0.85rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-auth:hover {
+            font-weight: 600;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+    .auth-footer {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: var(--text-color);
+    }
+
+        .auth-footer a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+            .auth-footer a:hover {
+                font-weight: 700;
+            }
+</style>

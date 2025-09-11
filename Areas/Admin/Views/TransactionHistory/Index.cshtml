@@ -1,0 +1,94 @@
+﻿@model IEnumerable<manage_coffee_shop_web.Models.Order>
+
+@{
+    ViewData["Title"] = "Transaction History Management";
+}
+
+<h1>Transaction History Management</h1>
+
+<!-- Advanced Search Form -->
+<form asp-action="Index" method="get" class="mb-4">
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" name="customerName" class="form-control" placeholder="Customer Name" value="@ViewBag.CustomerName" />
+        </div>
+        <div class="col-md-2">
+            <input type="date" name="startDate" class="form-control" value="@ViewBag.StartDate" />
+        </div>
+        <div class="col-md-2">
+            <input type="date" name="endDate" class="form-control" value="@ViewBag.EndDate" />
+        </div>
+        <div class="col-md-2">
+            <input type="number" name="minTotal" class="form-control" placeholder="Min Total" value="@ViewBag.MinTotal" step="0.01" />
+        </div>
+        <div class="col-md-2">
+            <input type="number" name="maxTotal" class="form-control" placeholder="Max Total" value="@ViewBag.MaxTotal" step="0.01" />
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<p>
+    <button type="button" class="btn btn-danger" onclick="archiveOrders()">Archive Selected</button>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="selectAll" /></th>
+            <th>#</th>
+            <th>Customer Name</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int index = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><input type="checkbox" class="orderCheckbox" data-id="@item.Id" /></td>
+                <td>@index</td>
+                <td>@item.ApplicationUser?.UserName</td>
+                <td>@item.OrderDate.ToString("dd/MM/yyyy")</td>
+                <td>@item.TotalAmount.ToString("C")</td>
+                <td>@item.Status</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Details</a>
+                </td>
+            </tr>
+            index++;
+        }
+    </tbody>
+</table>
+
+<script>
+    function archiveOrders() {
+        var orderIds = $('.orderCheckbox:checked').map(function () {
+            return $(this).data('id');
+        }).get();
+        if (orderIds.length === 0) {
+            alert('Please select at least one order to archive.');
+            return;
+        }
+        if (confirm('Are you sure you want to archive the selected orders?')) {
+            $.post('@Url.Action("Archive")', { orderIds: orderIds }, function () {
+                location.reload();
+            });
+        }
+    }
+
+    $('#selectAll').change(function () {
+        $('.orderCheckbox').prop('checked', $(this).prop('checked'));
+    });
+</script>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+}

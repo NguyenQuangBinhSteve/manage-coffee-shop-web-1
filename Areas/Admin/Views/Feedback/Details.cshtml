@@ -1,0 +1,27 @@
+﻿@model manage_coffee_shop_web.Models.Feedback
+
+@{
+    ViewData["Title"] = "Chi tiết phản hồi";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">ID: @Model.Id</h5>
+        <p class="card-text"><strong>Người dùng:</strong> @(Model.ApplicationUser?.Name ?? "Người dùng ẩn danh")</p>
+        <p class="card-text"><strong>Sản phẩm:</strong> @Model.Product?.Name</p>
+        <p class="card-text"><strong>Nội dung:</strong> @Model.Comment</p>
+        <p class="card-text"><strong>Đánh giá:</strong> @string.Concat(Enumerable.Repeat("★", Model.Rating))@(string.Concat(Enumerable.Repeat("☆", 5 - Model.Rating))) (@Model.Rating/5)</p>
+        <p class="card-text"><strong>Ngày tạo:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy")</p>
+        <p class="card-text"><strong>Trạng thái:</strong> @Model.Status</p>
+        <form asp-action="Delete" asp-route-id="@Model.Id" method="post" style="display:inline"
+              onsubmit="return confirm('Bạn có muốn xóa phản hồi này không?');">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+        </form>
+    </div>
+</div>
+
+<a asp-area="Admin" asp-controller="Feedback" asp-action="Index" class="btn btn-secondary mt-3">Quay lại danh sách</a>

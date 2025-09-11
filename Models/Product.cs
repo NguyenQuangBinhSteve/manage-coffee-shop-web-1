@@ -25,10 +25,12 @@ namespace manage_coffee_shop_web.Models
         public DateTime CreatedDate { get; set; } = DateTime.Now; // Ngày tạo
 
         [Required]
-        public int CategoryId { get; set; } // Khóa ngoại đến Category
+        public int? CategoryId { get; set; } // Must be nullable
         public Category Category { get; set; } // Navigation property
 
         public ICollection<OrderDetail> OrderDetails { get; set; } // Quan hệ 1-n với OrderDetail
 
+        // Navigation property for feedback
+        public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }

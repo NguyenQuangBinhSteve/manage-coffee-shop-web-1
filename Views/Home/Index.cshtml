@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model List<manage_coffee_shop_web.Models.Product>
 @* Add this at the top of the file *@
 @using manage_coffee_shop_web.Models
 
@@ -95,18 +95,19 @@
         </form>
         <div class="row">
             <div class="col-md-12">
+                
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    @foreach (var product in ViewBag.Products ?? Enumerable.Empty<dynamic>())
+                    @foreach (var product in Model ?? Enumerable.Empty<manage_coffee_shop_web.Models.Product>())
                     {
                         <div class="col">
                             <div class="card product-card h-100">
-                                <a href="@Url.Action("Details", "Product", new { id = product.Id })">
+                                <a href="@Url.Action("Category", "Product")">
                                     <img src="@product.Image" class="card-img-top" alt="@product.Name" loading="lazy" />
                                 </a>
                                 <div class="card-body">
                                     <h5 class="card-title">@product.Name</h5>
                                     <p class="card-text price">@string.Format("{0:N0} VNĐ", product.Price)</p>
-                                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-sm btn-success mt-2">Xem Chi Tiết</a>
+                                    <a href="@Url.Action("Category", "Product")" class="btn btn-sm btn-success mt-2">Xem Chi Tiết</a>
                                 </div>
                             </div>
                         </div>

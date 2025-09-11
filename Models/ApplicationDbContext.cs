@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace manage_coffee_shop_web.Models
 {
@@ -19,6 +20,8 @@ namespace manage_coffee_shop_web.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ArchivedOrder> ArchivedOrders { get; set; }
+        public DbSet<ArchivedOrderDetail> ArchivedOrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -39,6 +42,43 @@ namespace manage_coffee_shop_web.Models
                 .HasMany(p => p.OrderDetails)
                 .WithOne(od => od.Product)
                 .HasForeignKey(od => od.ProductId);
+
+            // Configure the relationship between Feedback and ApplicationUser
+            builder.Entity<Feedback>()
+                .HasOne(f => f.ApplicationUser)
+                .WithMany() // No inverse navigation property on ApplicationUser
+                .HasForeignKey(f => f.ApplicationUserId);
+
+            // Configure the relationship between Feedback and Product
+            builder.Entity<Feedback>()
+                .HasOne(f => f.Product)
+                .WithMany() // No inverse navigation property on Product
+                .HasForeignKey(f => f.ProductId);
+
+            // Existing configurations...
+            builder.Entity<Cart>()
+                .HasMany(c => c.CartItems)
+                .WithOne(ci => ci.Cart)
+                .HasForeignKey(ci => ci.CartId);
+
+            // Feedback and ApplicationUser
+            builder.Entity<Feedback>()
+                .HasOne(f => f.ApplicationUser)
+                .WithMany()
+                .HasForeignKey(f => f.ApplicationUserId);
+
+            // Feedback and Product
+            builder.Entity<Feedback>()
+                .HasOne(f => f.Product)
+                .WithMany(p => p.Feedbacks)
+                .HasForeignKey(f => f.ProductId);
+
+            // Ensure Status and IsDeleted are mapped with the renamed enum
+            builder.Entity<Feedback>(entity =>
+            {
+                entity.Property(e => e.Status).HasDefaultValue(Feedback.FeedbackState.New);
+                entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            });
 
             builder.Entity<Category>()
                 .HasMany(c => c.Products)

@@ -1,0 +1,25 @@
+﻿@model List<manage_coffee_shop_web.Models.Order>
+
+<h2>Lịch Sử Giao Dịch</h2>
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var order in Model)
+        {
+            <li>
+                Order ID: @order.Id - Date: @order.OrderDate.ToString("dd/MM/yyyy") - Total: @string.Format("{0:N0} VNĐ", order.TotalAmount) - Status: @order.Status
+                <ul>
+                    @foreach (var detail in order.OrderDetails)
+                    {
+                        <li>@detail.Product.Name - @detail.Quantity x @string.Format("{0:N0} VNĐ", detail.Price)</li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Không có giao dịch nào.</p>
+}
+<a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Quay Lại</a>
